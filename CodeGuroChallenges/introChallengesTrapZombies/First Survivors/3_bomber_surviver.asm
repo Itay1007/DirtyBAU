@@ -1,0 +1,9 @@
+%define ZOMBIE_START_POSITION 0x1234
+%define ZOMBIE_START_CODE_LEN 0xB
+%define BOMB_VALUE 0xCCCC
+
+bomb:
+mov bx, [ZOMBIE_START_POSITION]
+add bx, ZOMBIE_START_CODE_LEN
+mov word [bx], 0xCCCC
+jmp bomb
