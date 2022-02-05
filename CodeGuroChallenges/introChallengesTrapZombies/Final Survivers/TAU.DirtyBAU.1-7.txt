@@ -1,0 +1,213 @@
+%define ZOMBIE_POSITION 0x1234
+%define JMP_ZOMBIE_TRAP_OPCODE 0xE3FF
+%define JMP_AX_OPCODE 0xE0FF
+
+trapTheZobie:
+ 
+add ax, zombieTrap
+mov byte [ZOMBIE_POSITION + 5], 0xB8
+mov word [ZOMBIE_POSITION + 6], ax
+mov word [ZOMBIE_POSITION + 8], JMP_AX_OPCODE 
+
+mov byte [ZOMBIE_POSITION + 2], 0x2
+mov byte [ZOMBIE_POSITION], 0x90
+mov byte [ZOMBIE_POSITION + 1], 0xEB
+jmp $
+
+zombieTrap:
+    jmp $    
+
+
+
+
+
+%define ZOMBIE_POSITION 0x1234
+%define JMP_ZOMBIE_TRAP_OPCODE 0xE3FF
+%define JMP_AX_OPCODE 0xE0FF
+
+trapTheZobie:
+
+add ax, zombieTrap
+mov bx, [ZOMBIE_POSITION]
+add bx, 5
+
+mov byte [bx + 3], 0xB8
+mov word [bx + 4], ax
+mov word [bx + 6], JMP_AX_OPCODE 
+
+mov byte [bx], 0x2
+mov byte [bx - 2], 0x90
+mov byte [bx - 1], 0xEB
+jmp $
+
+zombieTrap:
+    jmp $    
+    
+	
+	
+	
+%define ZOMBIE_POSITION 0x1234
+%define JMP_ZOMBIE_TRAP_OPCODE 0xE3FF
+%define JMP_AX_OPCODE 0xE0FF
+%define ZOMBLIE_CODE_LENGTH 13
+
+trapTheZobie:
+
+add ax, zombieTrap
+mov bx, [ZOMBIE_POSITION]
+add bx, ZOMBLIE_CODE_LENGTH
+
+mov byte [bx + 3], 0xB8
+mov word [bx + 4], ax
+mov word [bx + 6], JMP_AX_OPCODE 
+
+mov byte [bx], 0x2
+mov byte [bx - 2], 0x90
+mov byte [bx - 1], 0xEB
+jmp $
+
+zombieTrap:
+    jmp $    
+
+
+
+
+%define ZOMBIE_START_POSITION_XOR_KEY 0x1234
+%define R_KEY 0xBEEF
+%define ZOMBIE_START_CODE_LEN 0x11
+
+%define JMP_ZOMBIE_TRAP_OPCODE 0xE3FF
+%define JMP_AX_OPCODE 0xE0FF
+%define ZOMBIE_CODE_LENGTH 19
+
+trapTheZobie:
+
+add ax, zombieTrap
+nop
+nop
+nop
+mov bx, [ZOMBIE_START_POSITION_XOR_KEY]
+xor bx, R_KEY
+add bx, ZOMBIE_CODE_LENGTH
+
+mov byte [bx - 2], 0xB8
+mov word [bx - 1], ax
+mov word [bx + 1], JMP_AX_OPCODE 
+jmp $
+
+zombieTrap:
+    jmp $    
+
+	
+
+
+
+%define ZOMBIE_POSITION 0x1234
+%define JMP_ZOMBIE_TRAP_OPCODE 0xE3FF
+%define JMP_AX_OPCODE 0xE0FF
+%define PREFIX_MOV_OPCODE 0xB8
+%define LOAD_ME_TO_MEM 0x6042
+%define MEM 0x1234 + 0x10
+%define READ_LOC 0x1234
+
+trapTheZobie:
+
+
+mov word [MEM], LOAD_ME_TO_MEM 
+
+add ax, zombieTrap
+nop
+nop
+nop
+nop
+nop
+mov bx, [READ_LOC]
+
+mov byte [bx + 5], PREFIX_MOV_OPCODE
+mov word [bx + 6], ax
+mov word [bx + 8], JMP_AX_OPCODE 
+
+mov byte [bx + 2], 0x2
+mov byte [bx], 0x90
+mov byte [bx + 1], 0xEB
+jmp $
+
+zombieTrap:
+    jmp $    
+
+
+
+
+%define ZOMBIE_POSITION 0x1234
+%define JMP_ZOMBIE_TRAP_OPCODE 0xE3FF
+%define JMP_AX_OPCODE 0xE0FF
+%define ZOMBLIE_CODE_LENGTH 13
+
+trapTheZobie:
+
+add ax, zombieTrap
+nop
+nop
+mov bx, [0x800 - 2]
+
+mov byte [bx + 3], 0xB8
+mov word [bx + 4], ax
+mov word [bx + 6], JMP_AX_OPCODE 
+
+mov byte [bx], 0x2
+mov byte [bx - 3], 0x90
+mov byte [bx - 2], 0x90
+mov byte [bx - 1], 0xEB
+jmp $
+
+zombieTrap:
+    jmp $    
+
+
+
+
+
+%define ZOMBIE_POSITION 0x1234
+%define JMP_AX_OPCODE 0xE0FF
+%define ZOMBLIE_CODE_LENGTH 13
+%define JMP_BX_OPCODE 0xE3FF
+%define PREFIX_MOV_OPCODE 0xB8
+
+push ax
+nop
+nop
+nop
+
+spyToFindZombie:
+
+; key observation 
+; zombie ip after some steps
+; is and can be only in a memory cell of kind
+; [XXXX] while X in {1,2,3,4,5,6,7,8} as [1111] and [6666]
+
+    add cx, 1
+    mov ax, 0x1111
+    mul cx
+    mov bx, ax
+    mov word dx, [bx]
+    cmp dx, JMP_BX_OPCODE
+    jne spyToFindZombie
+    jmp trapTheZombie
+
+trapTheZombie:
+
+pop ax
+add ax, zombieTrap
+
+mov byte [bx + 5], PREFIX_MOV_OPCODE
+mov word [bx + 6], ax
+mov word [bx + 8], JMP_AX_OPCODE 
+
+mov byte [bx + 2], 0x2
+mov byte [bx], 0x90
+mov byte [bx + 1], 0xEB
+jmp $
+
+zombieTrap:
+    jmp $    
+
