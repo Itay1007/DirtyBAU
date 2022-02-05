@@ -1,25 +1,23 @@
-[1] continue to make the surviver for Sunday drill - NaNadav Itay Yoav Ilay Adam
-[+] run and understand of the other 3 survivers work - Done
-[+] win them by the best precentage you can - in progress
+[1] continue to make the surviver for Sunday drill - Nadav and Itay Done
+[+] run and understand of the other 3 survivers work - Nadavv and Itay Done
+[+] win them by the best precentage you can - Nadavv and Itay Done
 
-[2] make the first surviver for the next Sunday - Nadav Itay Yoav Ilay Adam
+[2] make the first surviver and second for friday - Nadav Itay Yoav Ilay Adam
 [+] the first of the two
 
 [3] finish the "trapZombie" of the assembly solutions - Itay Done
 [+] for the competion ZOMA
 
-[4] finish the traps for all the 4 zombies - Itay
+[4] finish the traps for all the 4 zombies - Itay Done
 
 [5] find the mathematical solution to the speedup of the zombie with wait - Adam and Ilay
 [+] see the file in the whatsapp group about the advanced technique
 
-[4] reverse engineer the survivers of the winners - Yoav
+[4] reverse engineer the survivers of the winners or look at the battle field using the engine - Yoav
 [+] of last year, 2 years ago and 3 years ago
 [+] to get ideas to implement in our code
 
-[5] think about the right technique for the zombie to do and build the "zombieTrap" - Ilay
+[5] think about the right technique for the zombie to do in zombieTrap and build the "zombieTrap" - Ilay
 
-[6] Continue the 15 intro challenges - Adam and Itay can join
+[6] Continue the 15 intro challenges - Adam
 [+] Status: Itay finished the first 7
-
-[7] work on zomb 
