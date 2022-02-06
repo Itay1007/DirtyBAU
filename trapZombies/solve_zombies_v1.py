@@ -10,7 +10,7 @@ def encrypt_ax(ax, cx=0x35, bx=0X11BF):
             ax = ax + 0x4743
             ax = ax & 0xffff  # ax is 32 bits
 
-        if temp & 0xff == ax & 0xff:
+        if temp & 0xfff == ax & 0xfff:
             print(f"INDEX: {j+1}")
             break
 
