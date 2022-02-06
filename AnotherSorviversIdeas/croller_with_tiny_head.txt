@@ -1,0 +1,10 @@
+push cs
+pop ss
+mov sp, ax
+
+mov ax, 0xd4ff
+mov bx, 0x5350
+
+push ax
+push bx
+call sp

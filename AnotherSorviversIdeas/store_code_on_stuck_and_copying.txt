@@ -1,0 +1,48 @@
+%define num_bombs 0x100
+%define jmp_size 0xf700-end+start-num_bombs
+
+mov si, ax
+add si, start
+
+push ax
+mov ax, 0xCCCC
+copy_to_shm:
+    mov cx, num_bombs / 2
+    rep stosw
+    
+    pop ax
+    
+    mov cx, (end - start)/2
+    rep movsw
+
+push es
+push ds
+pop es
+mov di, ax
+add di, end
+
+pop ds
+xor si, si
+
+mov bx, ax
+add bx, start
+
+mov dx, (end - start + num_bombs)
+add dx, jmp_size
+
+start:
+
+mov cx, (end-start+num_bombs)/2
+add di, jmp_size
+add bx, dx
+
+xor si, si
+
+copy:
+rep movsw
+
+jmp bx
+
+int3
+
+end:
