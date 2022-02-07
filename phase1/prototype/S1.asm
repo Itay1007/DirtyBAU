@@ -1,17 +1,46 @@
 %define call_dist 0x51ED
+%define jump_dist 0x5200
 
 
 
-mov dx, 0x5200
+;; randomizing CS into the dx register (will get officially updated at call far)
+mov bx, ax
+mov word [0x0], 0x0016
+div word [0x0]
+mov ax, bx
+add dx, 0x0FF6
 
-;confurations:
+
+
+;; moving data segment into the stack
 push ss
 pop ds
 
-push cs
-push cs
+
+;; entering the CS:IP (since it's fixed for now)
+mov bx, 0x240
+mov word [bx], 0xB6A2
+mov word [bx+2], dx
+
+
+;; configuring the ES:DI and SS:SP to be at the randomized location of CS:IP
+push dx
+push dx
 pop es 
 pop ss
+
+
+
+;; entering the call far command into the right place 
+mov di, 0xB6A2
+mov word [0x0], 0x1FFF
+movsw
+
+
+
+; reconfiguring dx to the jump_dist
+mov dx, jump_dist
+
 
 
 ;; entering data
@@ -30,29 +59,14 @@ mov word [20], call_dist
 
 
 
-
-
-
-;; entering the CS:IP (since it's fixed for now)
-mov bx, 0x240
-mov word [bx], 0xB6A2
-mov word [bx+2], 0x1000
-
-
-; entering the call far command
-push ds 
-push cs 
-pop ds
-mov word [0xB6A2], 0x1FFF
-pop ds
-
+;; entering the requirements for the call far command
 mov di, 0xB6A3
 lea sp, [di + bx - 1]
 mov si, 0x2
 mov cl, 0x7
 
 
-;looping:
+;; looping (here for encoding clarity)
 call far [bx]
 movsb
 movsw
