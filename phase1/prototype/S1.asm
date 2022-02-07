@@ -5,10 +5,10 @@
 
 ;; randomizing CS into the dx register (will get officially updated at call far)
 mov bx, ax
-mov word [0x0], 0x000A
+mov word [0x0], 0x0015
 div word [0x0]
 mov ax, bx
-add dx, 0x0FF6
+add dx, 0x1000
 
 
 
