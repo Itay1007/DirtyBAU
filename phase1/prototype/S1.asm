@@ -1,8 +1,8 @@
-%define call_dist 0x51ED
-%define jump_dist 0x5200
+%define jump_dist 0xA300
+%define call_dist (jump_dist - 0x13)
 %define base_cs 0x1000
 %define cs_range 0x0006
-%define interval 0x240
+%define interval 0x300
 
 ;; randomizing CS into the dx register (will get officially updated at call far)
 @CS_random:
@@ -11,6 +11,7 @@ mov word [0x0], cs_range
 div word [0x0]
 mov ax, bx
 add dx, base_cs
+mov dx, 0x1005
 
 
 ;; randomizing IP into the cs register (will get officially consumed at call far. used to be 0xB6A2)
