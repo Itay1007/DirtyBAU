@@ -48,13 +48,12 @@ mov word [0], 0x1FFF
 mov word [2], 0xA5A4
 mov word [4], 0xA5F3
 mov word [6], 0x07B1
-mov word [8], 0x3C03
-mov word [10], 0x218D
-mov word [12], 0xF631
-mov word [14], 0x1701
+mov word [8], 0x1701
+mov word [10], 0x3FC4
+mov word [12], 0x218D
+mov word [14], 0xF631
 mov word [16], 0x4FA5
 mov word [18], 0x1FFF
-mov word [20], call_dist
 
 
 
@@ -75,10 +74,10 @@ movsb
 movsw
 rep movsw
 mov cl, 0x7
-add di, [si]
+add [bx], dx
+les di, [bx]
 lea sp, [bx + di]
 xor si, si
-add [bx], dx
 movsw
 dec di
 call far [bx]
