@@ -1,0 +1,61 @@
+%define movsw_opcode 0xA5A5
+%define rep_movsw_opcode_size 2
+%define di_brain_margin 0x100+1+(end_brain-brain)
+%define sp_brain_margin 0x21D
+%define size di_brain_margin + sp_brain_margin 
+%define jmp_size 0x7300
+;pushing to stuck relocation code
+push ss
+pop es
+
+mov si, ax
+add si, relocation
+
+mov cx, (end_brain-relocation)/2
+rep movsw
+
+;set the segments
+
+push ss
+pop ds
+
+push cs
+pop es
+
+push cs
+pop ss
+
+mov bx, end_brain
+mov [bx+2], cs
+mov [bx], ax
+add word [bx], brain
+
+mov di, ax
+add di, end_relocation
+
+mov si, end_relocation -relocation
+
+mov bp, (end_relocation - relocation)/2 - 1; no need copy rep movsw
+mov dx, jmp_size -(end_relocation - relocation) - rep_movsw_opcode_size
+mov word ax, movsw_opcode 
+
+relocation:
+    rep movsw
+    add di, dx
+    mov [bx], di
+    movsw
+    movsw
+    mov sp, di
+    add sp, sp_brain_margin
+    sub di, di_brain_margin
+    xor si, si
+    mov cx, bp
+    call far [bx]
+    
+end_relocation:
+
+brain:
+    stosw
+    call far [bx]
+    int3
+end_brain:
