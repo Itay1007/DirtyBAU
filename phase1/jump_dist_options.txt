@@ -1,0 +1,56 @@
+This is a prime number: 0x0 in decimal: 0 multiplied by 2: 0x0      
+This is a prime number: 0x1 in decimal: 1 multiplied by 2: 0x2      
+This is a prime number: 0x2 in decimal: 2 multiplied by 2: 0x4      
+This is a prime number: 0x3 in decimal: 3 multiplied by 2: 0x6      
+This is a prime number: 0x5 in decimal: 5 multiplied by 2: 0xa      
+This is a prime number: 0x7 in decimal: 7 multiplied by 2: 0xe      
+This is a prime number: 0xb in decimal: 11 multiplied by 2: 0x16    
+This is a prime number: 0xd in decimal: 13 multiplied by 2: 0x1a    
+This is a prime number: 0x11 in decimal: 17 multiplied by 2: 0x22   
+This is a prime number: 0x13 in decimal: 19 multiplied by 2: 0x26   
+This is a prime number: 0x17 in decimal: 23 multiplied by 2: 0x2e   
+This is a prime number: 0x1d in decimal: 29 multiplied by 2: 0x3a   
+This is a prime number: 0x1f in decimal: 31 multiplied by 2: 0x3e   
+This is a prime number: 0x25 in decimal: 37 multiplied by 2: 0x4a   
+This is a prime number: 0x29 in decimal: 41 multiplied by 2: 0x52   
+This is a prime number: 0x2b in decimal: 43 multiplied by 2: 0x56   
+This is a prime number: 0x2f in decimal: 47 multiplied by 2: 0x5e   
+This is a prime number: 0x35 in decimal: 53 multiplied by 2: 0x6a   
+This is a prime number: 0x3b in decimal: 59 multiplied by 2: 0x76   
+This is a prime number: 0x3d in decimal: 61 multiplied by 2: 0x7a   
+This is a prime number: 0x43 in decimal: 67 multiplied by 2: 0x86  
+This is a prime number: 0x47 in decimal: 71 multiplied by 2: 0x8e   
+This is a prime number: 0x49 in decimal: 73 multiplied by 2: 0x92   
+This is a prime number: 0x4f in decimal: 79 multiplied by 2: 0x9e   
+This is a prime number: 0x53 in decimal: 83 multiplied by 2: 0xa6   
+This is a prime number: 0x59 in decimal: 89 multiplied by 2: 0xb2   
+This is a prime number: 0x61 in decimal: 97 multiplied by 2: 0xc2   
+This is a prime number: 0x65 in decimal: 101 multiplied by 2: 0xca  
+This is a prime number: 0x67 in decimal: 103 multiplied by 2: 0xce  
+This is a prime number: 0x6b in decimal: 107 multiplied by 2: 0xd6  
+This is a prime number: 0x6d in decimal: 109 multiplied by 2: 0xda  
+This is a prime number: 0x71 in decimal: 113 multiplied by 2: 0xe2  
+This is a prime number: 0x7f in decimal: 127                        
+This is a prime number: 0x83 in decimal: 131                        
+This is a prime number: 0x89 in decimal: 137                        
+This is a prime number: 0x8b in decimal: 139                        
+This is a prime number: 0x95 in decimal: 149                        
+This is a prime number: 0x97 in decimal: 151                        
+This is a prime number: 0x9d in decimal: 157                        
+This is a prime number: 0xa3 in decimal: 163                        
+This is a prime number: 0xa7 in decimal: 167                    
+This is a prime number: 0xad in decimal: 173                        
+This is a prime number: 0xb3 in decimal: 179                        
+This is a prime number: 0xb5 in decimal: 181                        
+This is a prime number: 0xbf in decimal: 191                        
+This is a prime number: 0xc1 in decimal: 193                        
+This is a prime number: 0xc5 in decimal: 197                        
+This is a prime number: 0xc7 in decimal: 199                        
+This is a prime number: 0xd3 in decimal: 211                        
+This is a prime number: 0xdf in decimal: 223                        
+This is a prime number: 0xe3 in decimal: 227                        
+This is a prime number: 0xe5 in decimal: 229                        
+This is a prime number: 0xe9 in decimal: 233                        
+This is a prime number: 0xef in decimal: 239                        
+This is a prime number: 0xf1 in decimal: 241                        
+This is a prime number: 0xfb in decimal: 251

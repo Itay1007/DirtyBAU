@@ -1,0 +1,11 @@
+In order to keep IP + CS * 10 (while IP_low = A2) coherent (as in, higher than 10,000 and lower than 20,000 at all times (lower than 20,000, since we don't want it to override the data we have in our Stack), we need:
+0FF6 <= CS <= 1005
+
+
+
+Now, we always rely on the overflow mechanism of the 2's complement bit representation, to perform the "modulus" effect on the SP, when it reaches 0000, because in case our interval extends over the end of the code segment as well as the start of the code segment. So, when SP reached 0000, we want it next to be FFFF, so it will jump from the end of CS to the start of it.
+Tho, there is one problem. As long as SS is lower than 1000, then SP won't jump whenever SS * 10 + SP reaches 10000, it will jump at a lower number, causing a memory exception. Therefore, we want SS to be at least larger than 1000, so that when SP would turn from 0000 to FFFF before SS * 10 + SP crosses below 10000.
+
+So, overall, the requirement for CS is:
+
+1000 <= CS <= 1005
