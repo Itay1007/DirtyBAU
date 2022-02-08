@@ -2,4 +2,4 @@ Since our CS, is at the range of 1000 <= CS <= 1005, we get that whenever the SP
 
 So now, since the maximum value of CS is 1005, we get that the Shared Memory will get overriden up to at most 2004F.
 
-So, if we want our survivors to communicate, at some point, we want any type of communication to occur from at least the 2004F address in the shared memory.
+So, if we want our survivors to communicate, at some point, we want any type of communication to occur from at least the 20050 (added 2004F by one) address in the shared memory.
