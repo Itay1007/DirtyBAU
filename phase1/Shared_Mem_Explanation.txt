@@ -1,4 +1,4 @@
-Since our CS, is at the range of 1000 <= CS <= 1005, we get that whenever the SP (Stack Pointer) reaches the value of FFFF, the shared Memory will most likely get overriden during the running of the program, up to the address of: CS * 10 + FFFF.
+Our CS, is at the range of 1000 <= CS <= 1005 (while CS must be an even number, else once SP reaches 0000, it will write to 0000, and FFFF, causing an exception, since it's too complicated for the simulator). So, overall, we get the CS will be either of the three: 1000, 1002, 1004. Now, we get that whenever the SP (Stack Pointer) reaches the value of FFFF, the shared Memory will most likely get overriden during the running of the program, up to the address of: CS * 10 + FFFF.
 
 So now, since the maximum value of CS is 1005, we get that the Shared Memory will get overriden up to at most 2004F.
 
