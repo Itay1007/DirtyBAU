@@ -45,11 +45,14 @@ main_brain:
 
     ;; randomizing CS into the dx register (will get officially updated at call far)
     @CS_random:
-    mov bx, ax
-    mov word cx, cs_range
-    div word cx
-    mov ax, bx
-    add dx, base_cs
+     mov bx, ax
+     mov byte cl, 0xD
+     shr ax, cl 
+     and word ax, 0x0100
+     mov dx, ax
+     mov ax, bx
+     add dx, base_cs
+
 
 
     ;; randomizing IP into the cs register (will get officially consumed at call far. used to be 0xB6A2)
@@ -137,7 +140,8 @@ main_brain:
     %define rep_movsw_opcode 0xA5F3
     %define movsw_opcode 0xFFA5
     %define call_far_bx_opcode 0x1FFF
-    %define safe_margin 0x8e
+    %define safe_margin_right 0x8e
+    %define safe_margin_left 0x48
     %define safe_jmp 0x300
 
     ;pushing to stuck relocation code
@@ -182,9 +186,10 @@ main_brain:
     set_location:
         mov [bx], di
         sub word [bx], end_move_steps - actions
-        lea bp, [di -(safe_margin +(end_move_steps - actions))]
-        add di, safe_margin
+        lea bp, [di -(safe_margin_left +(end_move_steps - actions))]
+        add di, safe_margin_right
         mov word [bp], dx
+        mov sp, bp
         xchg di, bp
         mov word [bp], dx
         xchg cx, si
@@ -212,7 +217,6 @@ main_brain:
         mov [bx], di
         stosw
         call far [bx]
-        int3
     end_move_steps:
   
 end:
