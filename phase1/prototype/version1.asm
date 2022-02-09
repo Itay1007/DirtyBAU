@@ -5,7 +5,7 @@
 push ax
 mov cx, ax
  
-repeat:   
+repeat:
     mov ax, [0xb60f] ; hex(0xb111 + n * 0x4FE + 2 * (n - 1))
     cmp ax, 0xCCCC
     jne got_result
@@ -37,22 +37,22 @@ trapZombie:
     pop ax
   
 main_brain:
-    %define jump_dist 0xA700
+    %define jump_dist 0x7300
     %define call_dist (jump_dist - 0x13)
-    %define base_cs 0x1000
-    %define cs_range 0x0006
-    %define interval 0x300
+    %define base_cs 0x0FF8
+    %define cs_range 0x0012
+    %define interval 0x200
+    %define shared_loc 0x50
 
     ;; randomizing CS into the dx register (will get officially updated at call far)
     @CS_random:
      mov bx, ax
-     mov byte cl, 0xD
+     mov byte cl, 0x000C
      shr ax, cl 
-     and word ax, 0x0100
+     and word ax, 0x000C
      mov dx, ax
      mov ax, bx
      add dx, base_cs
-
 
 
     ;; randomizing IP into the cs register (will get officially consumed at call far. used to be 0xB6A2)
@@ -71,6 +71,7 @@ main_brain:
     add [bx + write_first_location + 1], cx
     
     ;; moving data segment into the stack
+    push ds
     push ss
     pop ds
     
@@ -80,11 +81,16 @@ main_brain:
     mov word [bx], cx
     mov word [bx+2], dx
 
-
+    ;; shared memory store location
+    mov di, shared_loc
+    mov ax, cx
+    stosw
+    mov ax, dx
+    stosw
+    
     ;; configuring the ES:DI and SS:SP to be at the randomized location of CS:IP
     push dx
-    push dx
-    pop es 
+    pop es
     pop ss
 
 
@@ -96,15 +102,15 @@ main_brain:
     ;; entering data
     @insert:
     mov word [0], 0x1FFF
-    mov word [2], 0xA5A4
-    mov word [4], 0xA5F3
-    mov word [6], 0x07B1
-    mov word [8], 0x1701
-    mov word [10], 0x3FC4
-    mov word [12], 0x218D
-    mov word [14], 0xF631
-    mov word [16], 0x4FA5
-    mov word [18], 0x1FFF
+    mov word [2], 0xF3A5
+    mov word [4], 0xB1A5
+    mov word [6], 0x0107
+    mov word [8], 0xC417
+    mov word [10], 0x8D3F
+    mov word [12], 0x3121
+    mov word [14], 0xA5F6
+    mov word [16], 0xFF4F
+    mov word [18], 0xCC1F
 
 
 
@@ -121,7 +127,6 @@ main_brain:
     ;; looping (here for encoding clarity)
     @start_copy:
     call far [bx]
-    movsb
     movsw
     rep movsw
     mov cl, 0x7
@@ -132,6 +137,7 @@ main_brain:
     movsw
     dec di
     call far [bx]
+    int3
    
     zombieTrap:
     %define jmp_length jump_dist
