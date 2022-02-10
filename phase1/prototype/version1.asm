@@ -6,6 +6,7 @@ push ax
 mov cx, ax
  
 repeat:
+    
     mov ax, [0xb60f] ; hex(0xb111 + n * 0x4FE + 2 * (n - 1))
     cmp ax, 0xCCCC
     jne got_result
@@ -27,7 +28,7 @@ trapZombie:
     lea bx, [bx + write_zombie_start_location + 1]
     mov [bx], ax
     mov ax, bx 
-
+      
     mov bx, cx
     add bx, 0x3D - 0x2 + 19
     
@@ -101,24 +102,23 @@ main_brain:
 
     ;; entering data
     @insert:
-    mov word [0], 0x1FFF
-    mov word [2], 0xF3A5
-    mov word [4], 0xB1A5
-    mov word [6], 0x0107
-    mov word [8], 0xC417
-    mov word [10], 0x8D3F
-    mov word [12], 0x3121
-    mov word [14], 0xA5F6
-    mov word [16], 0xFF4F
-    mov word [18], 0xCC1F
+    mov word [0], 0xF3A5
+    mov word [2], 0xB1A5
+    mov word [4], 0x0107
+    mov word [6], 0xC417
+    mov word [8], 0x8D3F
+    mov word [10], 0x3121
+    mov word [12], 0xABF6
+    mov word [14], 0xFF4F
+    mov word [16], 0xCC1F
 
 
-
+    mov ax, 0x1FFF
 
     ;; entering the requirements for the call far command
     @prepare:
     les di, [bx]
-    movsw
+    stosw
     dec di
     lea sp, [di + bx - 1]
     mov cx, 0x7
@@ -134,7 +134,7 @@ main_brain:
     les di, [bx]
     lea sp, [bx + di]
     xor si, si
-    movsw
+    stosw
     dec di
     call far [bx]
     int3
@@ -146,7 +146,7 @@ main_brain:
     %define rep_movsw_opcode 0xA5F3
     %define movsw_opcode 0xFFA5
     %define call_far_bx_opcode 0x1FFF
-    %define safe_margin_right 0x8e
+    %define safe_margin_right 0x7A
     %define safe_margin_left 0x48
     %define safe_jmp 0x300
 
@@ -205,7 +205,7 @@ main_brain:
 
     actions:
         cmp word [bp], dx
-        jne move_steps
+        jne move_steps 
         xchg di, bp
         xchg bp, [bx]
         cmp word [bp + (end_move_steps - actions)], call_far_bx_opcode
@@ -213,16 +213,24 @@ main_brain:
         jne move_steps 
         call far [bx]      
     end_actions:
-
-
+    
     move_steps:
         mov bp, [bx]
-        mov word [bp + (end_move_steps - actions)], movsw_opcode
+        mov word [bp + (end_move_steps - actions)], 0xF631
+        mov word [bp + (end_move_steps - actions) + 2], 0xF631
+        mov word [bp + (end_move_steps - actions) + 4], 0x07B1
+        mov word [bp + (end_move_steps - actions) + 6], 0xF631
+        mov word [bp + (end_move_steps - actions) + 8], 0x1701
+        mov word [bp + (end_move_steps - actions) + 10], 0x3FC4
+        mov word [bp + (end_move_steps - actions) + 12], 0x218D
+        mov word [bp + (end_move_steps - actions) + 14], 0x4FAB
+        mov word [bp + (end_move_steps - actions) + 16], 0x1FFF
+       
         lea di, [bp + jmp_length - 2 - (end_set_location - set_location)]
         
         mov [bx], di
         stosw
+        
         call far [bx]
     end_move_steps:
-  
 end:
